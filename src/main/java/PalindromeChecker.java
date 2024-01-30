@@ -1,49 +1,40 @@
-import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.util.Scanner; // Import the Scanner class to read text files
-
-public class PalindromeChecker {
-public void tester()
-{
-  //String lines[] = loadStrings("palindromes.txt");
-  String[] lines = new String[6]; 
-    try{
-        File myFile = new File("palindromes.txt");
-        Scanner myReader = new Scanner(myFile);
-        int counter = 0;
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            lines[counter] = data;
-            counter++;
-        }
-        myReader.close();
-    }
-    catch (FileNotFoundException e) {
-        System.out.println("An error occurred.");
-        e.printStackTrace();
-    }
+public void setup() {
+  String lines[] = loadStrings("palindromes.txt");
   System.out.println("there are " + lines.length + " lines");
-  for (int i=0; i < lines.length; i++) 
-  {
-    if(palindrome(lines[i])==true)
-    {
+  
+  for (int i = 0; i < lines.length; i++) {
+    if (palindrome(lines[i])==true) {
       System.out.println(lines[i] + " IS a palindrome.");
-    }
-    else
-    {
+    } else {
       System.out.println(lines[i] + " is NOT a palindrome.");
     }
   }
 }
-public boolean palindrome(String word)
-{
-  //your code here
-  return false;
+
+public boolean palindrome(String word) {
+  String simplifiedWord = new String();
+  
+  for (int i = 0; i  < word.length(); i++) {
+    if ((! word.substring(i, i + 1).equals(" ")) && (Character.isLetter(word.charAt(i)))) {
+      simplifiedWord = simplifiedWord + (word.substring(i, i + 1)).toLowerCase();
+    }
+  } 
+  
+  if (simplifiedWord.equals(reverse(word))) {
+    return true;
+  } else {
+    return false;
+  }
 }
-public String reverse(String str)
-{
-    String sNew = new String();
-    //your code here
-    return sNew;
-}
+
+public String reverse(String str) {
+  String result = new String();
+  
+  for (int i = str.length() - 1; i >= 0; i--) {
+    if ((! str.substring(i, i + 1).equals(" ")) && (Character.isLetter(str.charAt(i)))) {
+      result = result + (str.substring(i, i + 1)).toLowerCase();
+    }
+  } 
+  
+  return result;
 }
